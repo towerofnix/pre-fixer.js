@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>prefixer.js</title>
+    <link rel='stylesheet' href='prism.css' />
+    <link rel='stylesheet' href='main.css' />
+    <script src='prefixer-dist.js'></script>
+  </head>
+  <body>
+    <div id='main-content'>
+      <header>
+        <h1><span class='red'>pre</span><span class='green'>fixer</span><span class='transparent'>.js</span></h1>
+        <h3>prefixer.js is a lightweight library for fixing indentation in <code>&lt;pre&gt;</code> elements.</h3>
+        <p>prefixer-dist.js's file size is <span id='prefixer-dist-size'>not quite figured out yet</span>.</p>
+        <p>prefixer.js's file size is <span id='prefixer-src-size'>something we aren't sure about</span>.</p>
+        <p>It's recommended to view this <a href='page-source.html' target='_blank'>page's</a> source while looking at the demos!</p>
+      </header>
+
+      <pre><code class='language-js'>
+        // wow. such indent
+        // i can haz fix?
+        prefix();
+        // yay. indent is disappear
+      </code></pre>
+
+      <pre><code class='language-js'>
+        // prefixer works with in-code indents
+        let foo = 'baz';
+        console.log(foo); // -> baz
+        {
+          let foo = 'bar';
+          console.log(foo); // -> bar
+        }
+        console.log(foo); // -> baz
+      </code></pre>
+
+      <pre><code class='language-js' id='demo-greedy'>
+        // unless you make it greedy
+        prefix({isGreedy: true});
+        {
+          // this is an indented block
+          let foo = 'baz';
+        }
+      </code></pre>
+
+      <pre><code class='language-js' id='demo-no-prefixer'>
+        // if just one of your &lt;pre&gt;s hate prefixer
+        // it's okay, just tell prefixer not to highlight them
+        prefix({noQuery: '#demo-no-prefixer'});
+
+        // noQuery can also take an array as its value
+      </code></pre>
+      <textarea>
+        // similarily there is also a query counterpart
+        // it's useful if you have a textarea, for example
+        prefix({query: 'textarea'});
+
+        // of course query can also take an array as its value
+      </textarea>
+
+      <pre><code class='language-html'>
+        &lt;!--
+          these examples use prism.js to syntax-highlight
+          prefixer.js should work with just about any
+          syntax highlighter; just make sure you put the
+          prefix calls before the syntax highlighting calls
+        --&gt;
+
+        &lt;script&gt;prefix();&lt;/script&gt;
+        &lt;script src='prism.js'&gt;&lt;/script&gt;
+
+        &lt;!--
+          if you put prefix calls after, hopefully nothing
+          will happen
+
+          but some frameworks might do the formatting right
+          away
+
+          which would make all the formatting ded D:
+        --&gt;
+      </code></pre>
+      <pre><code class='language-js'>
+        // prefix.js is careful to handle
+     // lower indentations
+           // and higher indentations
+          // such that the indentation that appears on all lines
+       // is reduced from all lines
+                // but no other indentation is
+      </code></pre>
+    </div>
+    <script src='prism.js'></script>
+    <script>
+      prefix({noQuery: [
+        '#demo-no-prefixer',
+        '#demo-greedy'
+      ]});
+      prefix({query: 'textarea'});
+      prefix({query: '#demo-greedy', isGreedy: true});
+    </script>
+    <script src='index-filler-dist.js'></script>
+  </body>
+</html>

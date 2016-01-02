@@ -1,0 +1,2 @@
+"use strict";fetch("index.html").then(function(e){return e.text()}).then(function(e){document.querySelector("pre > code").appendChild(document.createTextNode(e)),Prism.highlightAll()});
+//# sourceMappingURL=page-source-dist.js.map
