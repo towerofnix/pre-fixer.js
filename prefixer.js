@@ -36,7 +36,7 @@ function prefix({
     var badEls = noQuery ? Array.from(document.querySelectorAll(noQuery)) : [];
   }
   els.forEach(el => {
-    if (badEls.includes(el)) return;
+    if (badEls.indexOf(el) === -1) return;
     
     var textContent = el.textContent || '';
     var lines = textContent.split('\n');
