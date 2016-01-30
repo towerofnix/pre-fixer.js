@@ -81,3 +81,8 @@ textarea {
   position: relative;
   top: 3px;
 }
+
+iframe {
+  border: 0;
+  overflow: hidden;
+}

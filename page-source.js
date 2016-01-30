@@ -1,6 +1,6 @@
 fetch('index.html')
-  .then(r => r.text())
-  .then(t => {
+  .then(function(r) {return r.text()})
+  .then(function(t) {
     document.querySelector('pre > code').appendChild(document.createTextNode(t));
     Prism.highlightAll();
   });

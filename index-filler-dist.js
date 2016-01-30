@@ -1,2 +1,0 @@
-"use strict";function fillFileSize(e,t){fetch(t).then(function(e){return e.text()}).then(function(t){var r=100*Math.floor(t.length/100),i=r/1e3+"KB";document.querySelector(e).innerText=i})}fillFileSize("#prefixer-dist-size","prefixer-dist.js"),fillFileSize("#prefixer-src-size","prefixer.js");
-//# sourceMappingURL=index-filler-dist.js.map
