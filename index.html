@@ -2,17 +2,24 @@
 <html>
   <head>
     <title>prefixer.js</title>
-    <link rel='stylesheet' href='prism.css' />
+    <link rel='stylesheet' href='lib/prism.css' />
     <link rel='stylesheet' href='main.css' />
-    <script src='prefixer-dist.js'></script>
+
+    <!-- Some code for the site uses fetch so load that first -->
+    <script src='lib/fetch.js'></script>
+
+    <script src='prefixer.js'></script>
   </head>
   <body>
     <div id='main-content'>
       <header>
         <h1><span class='red'>pre</span><span class='green'>fixer</span><span class='transparent'>.js</span></h1>
         <h3>prefixer.js is a lightweight library for fixing indentation in <code>&lt;pre&gt;</code> elements.</h3>
-        <p>prefixer-dist.js's file size is <span id='prefixer-dist-size'>not quite figured out yet</span>.</p>
-        <p>prefixer.js's file size is <span id='prefixer-src-size'>something we aren't sure about</span>.</p>
+        <div id='file-size' style='display: none'>
+          <p>prefixer.js's file size is <span id='prefixer-size'>really small</span>.</p>
+          <!-- <p>prefixer-dist.js's file size is <span id='prefixer-dist-size'>not quite figured out yet</span>.</p> -->
+          <!-- <p>prefixer.js's file size is <span id='prefixer-src-size'>something we aren't sure about</span>.</p> -->
+        </div>
         <p>It's recommended to view this <a href='page-source.html' target='_blank'>page's</a> source while looking at the demos!</p>
       </header>
 
@@ -90,13 +97,13 @@
 
       <div id='buttons'>
         <h3><em>Very</em> directly help develop this:</h3>
-        <iframe src="https://ghbtns.com/github-btn.html?user=liam4&repo=pre-fixer.js&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
+        <iframe src="https://ghbtns.com/github-btn.html?user=liam4&repo=pre-fixer.js&type=fork&count=true&size=large" width="158" height="30"></iframe>
         <br><br>
         <h3>Make me feel accomplished:</h3>
-        <iframe src="https://ghbtns.com/github-btn.html?user=liam4&repo=pre-fixer.js&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+        <iframe src="https://ghbtns.com/github-btn.html?user=liam4&repo=pre-fixer.js&type=star&count=true&size=large" width="160" height="30"></iframe>
       </div>
     </div>
-    <script src='prism.js'></script>
+
     <script>
       prefix({noQuery: [
         '#demo-no-prefixer',
@@ -105,6 +112,8 @@
       prefix({query: 'textarea'});
       prefix({query: '#demo-greedy', isGreedy: true});
     </script>
-    <script src='index-filler-dist.js'></script>
+
+    <script src='lib/prism.js'></script>
+    <script src='index-filler.js'></script>
   </body>
 </html>

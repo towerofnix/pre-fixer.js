@@ -1,49 +1,66 @@
-// Sneaky default arguments hacks!
-function prefix({
-  
+function prefix(options) {
+  if (typeof options === 'undefined') options = {};
+
+  // Super quick polyfills
+  function def(k, v) {
+    if (typeof options[k] === 'undefined') {
+      return v;
+    } else {
+      return options[k];
+    }
+  }
+  function array(arrayLike) {
+    return Array.from ?
+      Array.from(arrayLike) :
+      array.prototype.slice.call(arrayLike, 0);
+  }
+
   // The query for all elements to fix. Keep in mind that
   // the indenting will destroy all the contents of these
   // elements, including formatting, and will replace it
   // with it's own fixed text.
-  query = 'pre > code',
+  var query = def('query', 'pre > code');
   
   // The query for all elements NOT to fix.
-  noQuery = '',
-  
+  var noQuery = def('noQuery', '');
+
   // If true, delete ALL indentation, so that all the non-
   // spacing characters begin on the same column and have no
   // indentation at all.
-  isGreedy = false
-} = {}) {
+  var isGreedy = def('isGreedy', false);
+
+  var els;
   if (query instanceof Array) {
-    var els = [];
-    for (let q of query) {
-      for (let e of Array.from(q ? document.querySelectorAll(q) : [])) {
+    els = [];
+    query.forEach(function(q) {
+      array(q ? document.querySelectorAll(q) : []).forEach(function(e) {
         els.push(e);
-      }
-    }
+      });
+    });
   } else {
-    var els = query ? Array.from(document.querySelectorAll(query)) : [];
+    els = query ? array(document.querySelectorAll(query)) : [];
   }
+
+  var badEls;
   if (noQuery instanceof Array) {
-    var badEls = [];
-    for (let q of noQuery) {
-      for (let e of Array.from(q ? document.querySelectorAll(q) : [])) {
+    badEls = [];
+    noQuery.forEach(function(q) {
+      array(q ? document.querySelectorAll(q) : []).forEach(function(e) {
         badEls.push(e);
-      }
-    }
+      });
+    });
   } else {
-    var badEls = noQuery ? Array.from(document.querySelectorAll(noQuery)) : [];
+    badEls = noQuery ? array(document.querySelectorAll(noQuery)) : [];
   }
-  els.forEach(el => {
-    if (badEls.indexOf(el) === -1) return;
+  els.forEach(function(el) {
+    if (badEls.indexOf(el) >= 0) return;
     
     var textContent = el.textContent || '';
     var lines = textContent.split('\n');
     var realIndent = Infinity;
 
     if (!isGreedy) {
-      lines.forEach(line => {
+      lines.forEach(function(line) {
         // Don't count indents for empty lines.
         if (!line.match(/^\ *$/)) {
 
@@ -58,15 +75,15 @@ function prefix({
         }
       });
       
-      lines.forEach((line, index) => {
+      lines.forEach(function(line, index) {
         var lineData = line.slice(realIndent);
         lines[index] = lineData;
       });
     } else {
-      lines.forEach((line, index) => {
+      lines.forEach(function(line, index) {
         var lineData = line.match(/^\ *(.*)$/)[1];
         lines[index] = lineData;
-      })
+      });
     }
 
     // If the first line is empty, get rid of it.
